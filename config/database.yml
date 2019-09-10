@@ -14,7 +14,7 @@ development:
   database: youtube_miner
   host: localhost
   username: postgres
-  password:
+  password: postgres
 
 
 # Warning: The database defined as "test" will be erased and

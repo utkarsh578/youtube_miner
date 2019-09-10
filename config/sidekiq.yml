@@ -1,0 +1,14 @@
+development:
+  :concurrency: 5
+  :logfile: ./log/development.log
+
+test:
+  :concurrency: 5
+
+staging:
+  :concurrency: 5
+  :logfile: ./log/staging.log
+
+production:
+  :concurrency: 5
+  :logfile: ./log/production.log

@@ -21,4 +21,10 @@ class YoutubeSearch::Repos::YoutubeData
         .offset(offset)
         .order(:published_at).to_a
   end
+
+  # This function counts total no of entries in db
+  # @return count[Integer]
+  def count
+    return YoutubeSearch::Models::YoutubeData.count
+  end
 end

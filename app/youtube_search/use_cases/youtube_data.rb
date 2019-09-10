@@ -7,6 +7,10 @@ class YoutubeSearch::UseCases::YoutubeData
     return youtube_data_repo.fetch(offset: offset, limit: limit)
   end
 
+  def count
+    return youtube_data_repo.count
+  end
+
   private
 
   def youtube_data_repo

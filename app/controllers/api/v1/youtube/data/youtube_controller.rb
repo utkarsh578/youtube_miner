@@ -16,4 +16,13 @@ class Api::V1::Youtube::Data::YoutubeController < ApplicationController
 
     render json: presented_youtube_data, status: 200
   end
+
+  #This is only to verify if Job server is adding the new content in DB or not
+  def count
+    count = YoutubeSearch::UseCases::YoutubeData
+        .new
+        .count
+
+    render json: {count: count}, status: 200
+  end
 end

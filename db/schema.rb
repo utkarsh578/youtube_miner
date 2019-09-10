@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20190906105257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "youtube_data", force: true do |t|
+  create_table "youtube_data", force: :cascade do |t|
     t.string   "video_id",      null: false
     t.string   "title",         null: false
     t.string   "description"

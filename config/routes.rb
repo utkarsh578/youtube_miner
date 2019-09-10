@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       namespace :youtube do
         namespace :data do
           get 'fetch', to: 'youtube#fetch'
+          get 'count', to: 'youtube#count'
         end
       end
     end
