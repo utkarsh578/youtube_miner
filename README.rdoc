@@ -33,10 +33,10 @@ Steps run the Application:
 
 **Note: There might be a problem in installing the dependencies on local so that's why i had hosted this project on google cloud
 API to access it on cloud: 
-http://35.226.20.165:3000/api/v1/youtube/data/fetch?per_page_count=[value]&page_no=[value]
-Click here(http://35.226.20.165:3000/api/v1/youtube/data/fetch?per_page_count=20&page_no=1) for example 
-Also i had also exposed one more API to check the count in the database this verifies that the job server is running in background and updating the data(after every 5 minutes) in db
-API for the count: http://35.226.20.165:3000/api/v1/youtube/data/count
+1. http://35.226.20.165:3000/api/v1/youtube/data/fetch?per_page_count=[value]&page_no=[value]
+2. Click here(http://35.226.20.165:3000/api/v1/youtube/data/fetch?per_page_count=20&page_no=1) for example 
+3. Also i had also exposed one more API to check the count in the database this verifies that the job server is running in      background and updating the data(after every 5 minutes) in db
+4. API for the count: http://35.226.20.165:3000/api/v1/youtube/data/count
 
 
 Code Structure:
