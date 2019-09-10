@@ -19,7 +19,7 @@ class YoutubeSearch::Repos::YoutubeData
     YoutubeSearch::Models::YoutubeData
         .limit(limit)
         .offset(offset)
-        .order(:published_at).to_a
+        .order('published_at desc').to_a
   end
 
   # This function counts total no of entries in db
