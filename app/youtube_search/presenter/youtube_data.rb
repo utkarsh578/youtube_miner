@@ -1,6 +1,8 @@
 class YoutubeSearch::Presenter::YoutubeData
+
   def present(youtube_data:)
     return {
+        query: YoutubeSearch::UseCases::YoutubeMiner::QUERY,
         youtube_data: youtube_data.map do |data|
           {
               video_id: data[:video_id],
