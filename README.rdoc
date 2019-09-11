@@ -1,28 +1,60 @@
-== README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Youtube Data Miner
+Details: This application contains 2 parts
+1. App server:
+  App server exposes the paginated API to access the youtube data
+  API - localhost:3000/api/v1/youtube/data/fetch?per_page_count=[value]&page_no=[value]
+  The above API shows the data in descending order of published date
+2. Job Server
+  This server is responsible to run a cron after every 5 minutes which fetches the data from the youtube via HTTP GET API
+  After fetching the data from Youtube it persist it on our database which will be further used by the App server to give the     youtube data from our database
+  Query for fetching youtube data is ‘songs’
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Steps run the Application:
+1. Install ruby
+2. Install postgres database
+3. Install redis (Used for Job server)
+4. sudo apt-get install build-essential patch ruby-dev zlib1g-dev liblzma-dev
+5. gem install nokogiri
+6. sudo apt-get install libpq-dev
+7. sudo apt install postgresql postgresql-contrib libpq-dev -y
+8. sudo systemctl start postgresql
+9. sudo systemctl enable postgresql
+10. sudo su - postgres
+11. psql
+12. CREATE DATABASE youtube_miner;
+13. \password postgres
+14. #make password as postgres
+15. apt-get install nodejs
+16. Again at root folder run ‘bundle install’
+17. At root folder run ‘bundle exec rake db:migrate’
+18. Goto root folder of the app and run ‘sidekiq’ (This will start our Job Server)
+19. Again goto root folder and run ‘bundle exec rails s’(This will start server and will listen on 3000 PORT)
+
+**Note: There might be a problem in installing the dependencies on local so that's why i had hosted this project on google cloud
+API to access it on cloud: 
+1. 35.226.20.165:3000/api/v1/youtube/data/fetch?per_page_count=[value]&page_no=[value]
+2. Click here(http://35.226.20.165:3000/api/v1/youtube/data/fetch?per_page_count=20&page_no=1) for example 
+3. Also i had also exposed one more API to check the count in the database which verifies that the job server is running in      background and updating the data(after every 5 minutes) in db
+4. API for the count: http://35.226.20.165:3000/api/v1/youtube/data/count
+
+
+Code Structure:
+**Most of the code are inside app/youtube_search directory
+
+1. app/workers/youtube_worker.rb - This class file wakes after every 5 minutes of interval  to fetch the data from youtube
+2. app/youtube_search/helpers/request_youtube.rb - This file contains the code for API call to Youtube
+3. app/youtube_search/models/youtube_data.rb - This class file is the representation of the database table ‘youtube_data’’
+4. app/youtube_search/repos/youtube_data.rb - This is responsible for doing all DB operations
+5. app/youtube_search/use_cases/youtube_miner.rb -  This class file contains the business logic to fetch the data from         Youtube(This class is called from ‘youtube_worker.rb’)
+6. app/youtube_search/use_cases/youtube_data.rb - This class file also contains the business logic for fetching the youtube data via 'Repo’
+7. app/config/routes.rb - This file contains the route configuration for the API
+8. app/controllers/api/v1/youtube/data/youtube_controller.rb - This is the controller which responds to API call for ‘youtube data’ and ‘count’ API
+9. db/migrate - This directory contains the migration for 
+
+
+DB Optimization:
+1. Index is created on ‘published_at’ as we are sorting by published_at
+
+
+
